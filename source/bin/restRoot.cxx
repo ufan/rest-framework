@@ -57,7 +57,7 @@ int main(int argc, char* argv[]) {
                     printf("\n");
                     printf(" restRoot --m [0,1]\n");
                     printf("\n");
-                    printf(" Option 0 will disable macro loading. Option 1 is the default.\n");
+                    printf(" Option 1 will enable loading. Option 0 is the default.\n");
                     printf("\n");
                     exit(0);
             }

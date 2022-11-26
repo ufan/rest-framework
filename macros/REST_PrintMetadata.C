@@ -9,7 +9,7 @@
 //*** This macro might need update/revision.
 //***
 //*******************************************************************************************************
-Int_t REST_Metadata(TString fName, TString objName = "") {
+Int_t REST_PrintMetadata(TString fName, TString objName = "") {
     TRestStringOutput RESTLog;
     RESTLog.setorientation(TRestStringOutput::REST_Display_Orientation::kLeft);
 
