@@ -150,7 +150,7 @@
 ///
 /// A more advanced usage is sequential startup, when the metadata class contains
 /// another metadata class. We can write in the host class's InitFromConfigFile()
-/// to new the resident class, and the call the resident class's LoadConfigFromFile()
+/// to new the resident class, and the call the resident class's LoadConfigFromElement()
 /// method, giving the child section as the resident class's config section. The rml
 /// hierarchy could therefore be the same as class residence.
 ///
@@ -176,11 +176,11 @@
 ///			string value = e->Value();
 /// 		if (value == "TRestRun") {
 /// 		    fRunInfo = new TRestRun();
-/// 		    fRunInfo->LoadConfigFromFile(e, fElementGlobal);
+/// 		    fRunInfo->LoadConfigFromElement(e, fElementGlobal, {});
 ///			}
 /// 		else if (value == "TRestAnalysisPlot") {
 /// 		    fPlot = new TRestAnalysisPlot();
-/// 		    fPlot->LoadConfigFromFile(e, fElementGlobal);
+/// 		    fPlot->LoadConfigFromElement(e, fElementGlobal, {});
 ///			}
 /// 	}
 /// }
@@ -578,38 +578,6 @@ Int_t TRestMetadata::LoadConfigFromFile(const string& configFilename, const stri
         GetChar();
         return -1;
     }
-
-    // find the xml section corresponding to the sectionName
-    TiXmlElement* sectional = GetElementFromFile(fConfigFileName, thisSectionName);
-    if (sectional == nullptr) {
-        RESTError << "cannot find xml section \"" << ClassName() << "\" with name \"" << thisSectionName
-                  << "\"" << RESTendl;
-        RESTError << "in config file: " << fConfigFileName << RESTendl;
-        exit(1);
-    }
-
-    // find the "globals" section. Multiple sections are supported.
-    TiXmlElement* rootEle = GetElementFromFile(fConfigFileName);
-    TiXmlElement* global = GetElement("globals", rootEle);
-    if (global != nullptr) ReadElement(global);
-    if (global != nullptr && global->NextSiblingElement("globals") != nullptr) {
-        TiXmlElement* ele = global->NextSiblingElement("globals");
-        if (ele != nullptr) ReadElement(ele);
-        while (ele != nullptr) {
-            TiXmlElement* e = ele->FirstChildElement();
-            while (e != nullptr) {
-                global->InsertEndChild(*e);
-                e = e->NextSiblingElement();
-            }
-            ele = ele->NextSiblingElement("globals");
-        }
-    }
-
-    // call the real loading method
-    int result = LoadConfigFromElement(sectional, global, {});
-    delete sectional;
-    delete rootEle;
-    return result;
 }
 
 ///////////////////////////////////////////////

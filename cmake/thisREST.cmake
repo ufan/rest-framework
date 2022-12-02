@@ -16,7 +16,10 @@ set(thisGeant4 "${GEANT4_PATH}/bin/geant4.sh")
 
 if (${REST_G4} MATCHES "ON")
     set(loadG4 "\# if geant4.sh script is found we load the same Geant4 version as used in compilation\nif [[ -f \\\"${thisGeant4}\\\" ]]; then
-    source ${thisGeant4}\nfi\n")
+    curdir=\$\(pwd\)
+    cd ${GEANT4_PATH}/bin
+    source geant4.sh
+    cd \$curdir\nfi")
 else ()
     set(loadG4 "")
 endif (${REST_G4} MATCHES "ON")
@@ -95,6 +98,7 @@ export PATH=\\\$REST_PATH/bin:\\\$_PATH
 export LD_LIBRARY_PATH=\\\$REST_PATH/lib:\\\$_LD_LIBRARY_PATH
 export LIBRARY_PATH=\\\$REST_PATH/lib:\\\$LIBRARY_PATH
 export PYTHONPATH=${PYTHON_BINDINGS_INSTALL_DIR}:\\\$PYTHONPATH
+export CMAKE_PREFIX_PATH=\\\$REST_PATH/cmake:\\\$CMAKE_PREFIX_PATH
 
 alias restRoot=\\\"restRoot -l\\\"
 alias restRootMacros=\\\"restRoot -l --m 1\\\"

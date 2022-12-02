@@ -1,6 +1,17 @@
 #!/bin/bash
-set -e
 
+ROOT_VERSION=6.24.02
+if [ $(root-config --version | grep $ROOT_VERSION) ];then
+
+echo "ROOT of version $ROOT_VERSION has already been installed"
+echo prefix:
+echo $(root-config --prefix)
+echo cflags:
+echo $(root-config --cflags)
+
+else
+
+set -e
 CURRENT_DIR=$PWD
 
 unameOut="$(uname -s)"
@@ -12,7 +23,6 @@ case "${unameOut}" in
     *)          machine="UNKNOWN:${unameOut}"
 esac
 
-ROOT_VERSION=6.24.02
 ROOT_DIR=$HOME/apps/root-$ROOT_VERSION
 
 mkdir -p ${ROOT_DIR}
@@ -44,8 +54,23 @@ make install
 cd ${CURRENT_DIR}
 
 echo ""
-echo "Execute this to load the recently compiled ROOT version in your environment"
-echo "source ${ROOT_DIR}/install/bin/thisroot.sh"
-#echo "#Added by REST installROOT.sh script to setup ROOT environment" >> ~/.bashrc
-#echo "source ${ROOT_DIR}/install/bin/thisroot.sh" >> ~/.bashrc
+echo "The following line has been added to your .bashrc to setup the ROOT environment"
 echo ""
+echo "source ${ROOT_DIR}/install/bin/thisroot.sh"
+echo " " >> ~/.bashrc
+echo "#Added by REST installROOT.sh script to setup ROOT environment" >> ~/.bashrc
+echo "source ${ROOT_DIR}/install/bin/thisroot.sh" >> ~/.bashrc
+echo ""
+
+if [ -f $HOME/.zshrc ]; then
+echo ""
+echo "The following line has been added to your .zshrc to setup the ROOT environment"
+echo ""
+echo "source ${ROOT_DIR}/install/bin/thisroot.sh"
+echo " " >> ~/.zshrc
+echo "#Added by REST installROOT.sh script to setup ROOT environment" >> ~/.zshrc
+echo "source ${ROOT_DIR}/install/bin/thisroot.sh" >> ~/.zshrc
+echo ""
+fi
+
+fi

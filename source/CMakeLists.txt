@@ -42,6 +42,7 @@ foreach (dir ${dirs})
     foreach (subdir ${subdirs})
         set(fullname "${dir}/${subdir}")
         DIRNAME2OPTION(option ${fullname})
+        set(${option} ON CACHE BOOL "")
 
         file(GLOB ff "*/${subdir}/CMakeLists.txt")
         if (ff) # if dir not empty, set the option to ON
@@ -62,6 +63,7 @@ endforeach ()
 
 if (${REST_G4} MATCHES ON)
     set(RESTLIB_GEANT4 ON)
+    set(REST_GARFIELD ON CACHE BOOL ON)
 endif ()
 
 if (${RESTLIB_DETECTOR} MATCHES ON)

@@ -14,6 +14,13 @@ else
     echo " " >> ~/.bashrc
     echo "#Added by REST installGarfield.sh script to setup garfield++ environment" >> ~/.bashrc
     echo "export GARFIELD_HOME=~/apps/garfield6" >> ~/.bashrc
+
+    if [ -f $HOME/.zshrc ]; then
+        echo " ++++ GARFIELD_HOME has been added to your .zshrc"
+        echo " " >> ~/.zshrc
+        echo "#Added by REST installGarfield.sh script to setup garfield++ environment" >> ~/.zshrc
+        echo "export GARFIELD_HOME=~/apps/garfield6" >> ~/.zshrc
+    fi
 fi
 
 
@@ -25,6 +32,11 @@ else
     export HEED_DATABASE=$GARFIELD_HOME/Heed/heed++/database
     echo " ++++ HEED_DATABASE has been added to your .bashrc"
     echo "export HEED_DATABASE=\$GARFIELD_HOME/Heed/heed++/database" >> ~/.bashrc
+
+    if [ -f $HOME/.zshrc ]; then
+        echo " ++++ HEED_DATABASE has been added to your .zshrc"
+        echo "export HEED_DATABASE=\$GARFIELD_HOME/Heed/heed++/database" >> ~/.zshrc
+    fi
 fi
 
 
@@ -35,14 +47,19 @@ else
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GARFIELD_HOME/lib
     echo " ++++ LD_LIBRARY_PATH has been added to your .bashrc"
     echo "export LD_LIBRARY_PATH=\$GARFIELD_HOME/lib:\$LD_LIBRARY_PATH" >> ~/.bashrc
+    echo " " >> ~/.bashrc
+
+    if [ -f $HOME/.zshrc ]; then
+        echo " ++++ LD_LIBRARY_PATH has been added to your .zshrc"
+        echo "export LD_LIBRARY_PATH=\$GARFIELD_HOME/lib:\$LD_LIBRARY_PATH" >> ~/.zshrc
+        echo " " >> ~/.zshrc
+    fi
 fi
-echo " " >> ~/.bashrc
 
 
 rm -rf $GARFIELD_HOME/build
 
 echo checkout the code...
-#svn co http://svn.cern.ch/guest/garfield/tags/v1r0 $GARFIELD_HOME
 git clone https://gitlab.cern.ch/garfield/garfieldpp.git $GARFIELD_HOME
 cd $GARFIELD_HOME
 git checkout d9a5bbf0
@@ -53,23 +70,7 @@ mkdir -p build
 cd build
 
 cmake -DWITH_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=$GARFIELD_HOME ../
-make -j2 install
-
-# I add || true so that the script continues in case the pcm is not inside
-# rootdict/. As it is the case in some Garfield versions, in that case it
-# will be found already in lib/.
-#cp rootdict/*.pcm $GARFIELD_HOME/lib || true
-
-cd $WP
-
-echo ""
-echo "----------------------------------------------------------------------"
-echo ""
-echo "Garfield has been installed at $GARFIELD_HOME"
-echo ""
-echo " -- Few lines were added to your .bashrc. Check them out! "
-echo "----------------------------------------------------------------------"
-echo ""
+make -j4 install
 
 else
 	echo ROOT6 required, but not found!

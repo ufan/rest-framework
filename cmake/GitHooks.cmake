@@ -24,7 +24,7 @@ find_package(Git)
 
 if(Git_FOUND)
     message(STATUS "${GIT_EXECUTABLE} submodule foreach git rev-parse --git-path hooks")
-    execute_process(COMMAND ${GIT_EXECUTABLE} submodule --quiet foreach "git rev-parse --git-path hooks" OUTPUT_VARIABLE SUBMODULE_OUTPUT)
+    execute_process(COMMAND ${GIT_EXECUTABLE} submodule --quiet foreach "git rev-parse --git-path hooks" WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} OUTPUT_VARIABLE SUBMODULE_OUTPUT)
     string(REPLACE "\n" ";" "SUBMODULE_OUTPUT" "${SUBMODULE_OUTPUT}")
     set(SUBMODULE_HOOK ${SUBMODULE_OUTPUT})
     foreach(HOOK_DIR ${SUBMODULE_HOOK})

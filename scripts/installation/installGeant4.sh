@@ -1,8 +1,9 @@
 #!/bin/bash
 
-if [ $(geant4-config --version | grep "11.0.3") ];then
+G4_VERSION=11.0.3
+if [ $(geant4-config --version | grep $G4_VERSION) ];then
 
-echo Geant4 of version 11.0.3 has already been installed
+echo "Geant4 of version $G4_VERSION has already been installed"
 echo prefix:
 echo $(geant4-config --prefix)
 echo cflags:
@@ -13,7 +14,7 @@ else
 set -e
 WP=$PWD
 
-G4_ROOT=geant4-v11.0.3
+G4_ROOT=geant4-v${G4_VERSION}
 G4_FILE=$G4_ROOT.tar.gz
 
 echo installing: $G4_ROOT
@@ -48,4 +49,24 @@ echo " " >> ~/.bashrc
 echo ""
 echo "---------------------------------------------------------"
 
+if [ -f $HOME/.zshrc ]; then
+echo ""
+echo "---------------------------------------------------------"
+echo ""
+echo "The following line has been added to your .zshrc to setup the Geant4 environment"
+echo ""
+echo "curdir=\$(pwd)"
+echo "cd \$HOME/apps/$G4_ROOT-install/bin/"
+echo "source geant4.sh"
+echo "cd \${curdir}"
+echo " " >> ~/.zshrc
+echo "#Added by REST installGeant4.sh script to setup geant4 environment" >> ~/.zshrc
+echo "curdir=\$(pwd)" >> ~/.zshrc
+echo "cd \$HOME/apps/$G4_ROOT-install/bin/" >> ~/.zshrc
+echo "source geant4.sh" >> ~/.zshrc
+echo "cd \${curdir}" >> ~/.zshrc
+echo " " >> ~/.zshrc
+echo ""
+echo "---------------------------------------------------------"
+fi
 fi

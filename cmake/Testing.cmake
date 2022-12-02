@@ -1,6 +1,6 @@
 
 if (NOT DEFINED TEST OR NOT TEST)
-    set(TEST OFF)
+    set(TEST OFF CACHE BOOL "")
     message(STATUS "Testing disabled (Disabled by default, enabled via -DTEST=ON flag)")
 endif ()
 if (TEST)

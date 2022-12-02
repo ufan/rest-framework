@@ -1,5 +1,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.16)
 
+# Generate compile_commands.json by default (useful for some IDE)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
+
 PROJECT(REST)
 
 # Minimum compiler version
@@ -62,7 +65,7 @@ set(SCHEMA_EVOLUTION ${REST_SE})
 
 # Switch to enable ROOT Eve functionality.
 if (NOT DEFINED REST_EVE)
-    set(REST_EVE ON)
+    set(REST_EVE ON CACHE BOOL "")
 endif ()
 if (${REST_EVE} MATCHES "ON")
     add_definitions(-DUSE_Eve)
@@ -114,7 +117,7 @@ set(external_include_dirs ${external_include_dirs} ${ROOT_INCLUDE_DIRS})
 #####  mySQL  #####
 # This is to enable linking of SQL libraries. I.e. for process TRestSQLToAnalysisProcess.
 if (NOT DEFINED REST_SQL)
-    set(REST_SQL OFF)
+    set(REST_SQL OFF CACHE BOOL "")
 endif ()
 if (${REST_SQL} MATCHES "ON")
     list(APPEND rest_features "mySQL")
@@ -130,7 +133,7 @@ endif (${REST_SQL} MATCHES "ON")
 
 #####  MPFR  #####
 if (NOT DEFINED REST_MPFR)
-    set(REST_MPFR OFF)
+    set(REST_MPFR OFF CACHE BOOL "")
 endif ()
 if (${REST_MPFR} MATCHES "ON")
     find_path(MPFR_INCLUDE mpfr.h HINTS ${MPFR_PATH} ${MPFR_PATH}/include) # path to include directory
@@ -225,14 +228,21 @@ install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/data
         DESTINATION .
         COMPONENT install
         )
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/cmake/scripts
-        DESTINATION .
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/cmake/scripts/
+        DESTINATION cmake
         COMPONENT install
         )
-file(GLOB cmake_scripts
-        "cmake/scripts/*"
+install(FILES cmake/MacroRootDict.cmake
+        DESTINATION cmake
+        RENAME RestRootMacro.cmake
+        COMPONENT install
         )
-install(FILES ${cmake_scripts} DESTINATION cmake)
+
+install(FILES cmake/Testing.cmake
+       DESTINATION cmake
+       RENAME RestTesting.cmake
+       COMPONENT install
+      )
 
 if (CMAKE_SYSTEM_NAME MATCHES "Windows") # we must call library install here in windows
     foreach (lib ${rest_libraries})

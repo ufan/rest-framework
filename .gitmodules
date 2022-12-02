@@ -1,57 +1,24 @@
-[submodule "source/libraries/axion"]
-	path = source/libraries/axion
-	url = https://github.com/rest-for-physics/axionlib.git
-[submodule "source/libraries/model"]
-	path = source/libraries/model
-	url = git@lfna.unizar.es:gifna/RestModelLib.git
 [submodule "source/libraries/geant4"]
 	path = source/libraries/geant4
-	url = https://github.com/rest-for-physics/geant4lib.git
+	url = git@github.com:megmev/geant4lib.git
 [submodule "source/libraries/raw"]
 	path = source/libraries/raw
-	url = https://github.com/rest-for-physics/rawlib.git
+	url = git@github.com:megmev/rawlib.git
 [submodule "source/libraries/track"]
 	path = source/libraries/track
-	url = https://github.com/rest-for-physics/tracklib.git
+	url = git@github.com:megmev/tracklib.git
 [submodule "source/libraries/detector"]
 	path = source/libraries/detector
-	url = https://github.com/rest-for-physics/detectorlib.git
+	url = git@github.com:megmev/detectorlib.git
 [submodule "source/libraries/connectors"]
 	path = source/libraries/connectors
-	url = https://github.com/rest-for-physics/connectorslib.git
+	url = git@github.com:megmev/connectorslib.git
 [submodule "source/packages/restG4"]
 	path = source/packages/restG4
-	url = https://github.com/rest-for-physics/restG4.git
-[submodule "source/packages/restSQL"]
-	path = source/packages/restSQL
-	url = https://github.com/rest-for-physics/restSQL.git
+	url = git@github.com:megmev/restG4.git
 [submodule "scripts/batch-scripts"]
 	path = scripts/batch-scripts
 	url = https://github.com/rest-for-physics/batch-scripts.git
-[submodule "source/packages/restP3DB"]
-	path = source/packages/restP3DB
-	url = https://gitlab.pandax.sjtu.edu.cn/pandax-iii/restp3db.git
 [submodule "doc/userguide"]
 	path = doc/userguide
 	url = https://github.com/rest-for-physics/rest-docs.github.io.git
-[submodule "projects/alphacamm"]
-	path = projects/alphacamm
-	url = git@lfna.unizar.es:gifna/alphacamm.git
-[submodule "source/libraries/legacy"]
-	path = source/libraries/legacy
-	url = https://github.com/rest-for-physics/legacylib.git
-[submodule "projects/trexdm"]
-	path = projects/trexdm
-	url = git@lfna.unizar.es:gifna/trexdm-project.git
-[submodule "projects/iaxo"]
-	path = projects/iaxo
-	url = git@github.com:iaxo/iaxo.git
-[submodule "projects/detector-template"]
-	path = projects/detector-template
-	url = git@github.com:rest-for-physics/detector-template.git
-[submodule "projects/basic-examples"]
-	path = projects/basic-examples
-	url = https://github.com/rest-for-physics/basic-examples.git
-[submodule "source/libraries/wimp"]
-	path = source/libraries/wimp
-	url = https://github.com/rest-for-physics/wimplib.git

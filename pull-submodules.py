@@ -53,7 +53,7 @@ if( len(sys.argv ) <= 1 ):
     print_help()
     sys.exit(1)
 
-exclude_elems = ["userguide", "data"]
+exclude_elems = ["userguide", "data", "iaxo", "detector-template", "basic-examples", "wimp", "axion", "legacy","restSQL"]
 
 for x in range(len(sys.argv) - 1):
     if sys.argv[x + 1] == "--data":
