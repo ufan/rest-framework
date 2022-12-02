@@ -12,12 +12,13 @@ execute_process(COMMAND geant4-config --prefix
         WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
         OUTPUT_VARIABLE GEANT4_PATH)
 string(REGEX REPLACE "\n$" "" GEANT4_PATH "${GEANT4_PATH}")
-set(thisGeant4 "${GEANT4_PATH}/bin/geant4.sh")
+get_filename_component(GEANT4_BIN_DIR "${GEANT4_PATH}/bin/" REALPATH)
 
 if (${REST_G4} MATCHES "ON")
-    set(loadG4 "\# if geant4.sh script is found we load the same Geant4 version as used in compilation\nif [[ -f \\\"${thisGeant4}\\\" ]]; then
+  # https://github.com/rest-for-physics/framework/issues/331
+    set(loadG4 "\# if geant4.sh script is found we load the same Geant4 version as used in compilation\nif [[ -f \\\"${GEANT4_BIN_DIR}/geant4.sh\\\" ]]; then
     curdir=\$\(pwd\)
-    cd ${GEANT4_PATH}/bin
+    cd ${GEANT4_BIN_DIR}
     source geant4.sh
     cd \$curdir\nfi")
 else ()
@@ -52,7 +53,6 @@ export LD_LIBRARY_PATH=\$GARFIELD_HOME/lib:\$LD_LIBRARY_PATH
     set(Garfield_INCLUDE_ENV ":$ENV{GARFIELD_INSTALL}/include")
 endif ()
 
-message(STATUS "PYTHON BINDINGS: ${PYTHON_BINDINGS_INSTALL_DIR}")
 # install thisREST script, sh VERSION
 install(CODE
         "
