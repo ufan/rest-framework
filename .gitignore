@@ -11,3 +11,4 @@ Debug
 *.tgz
 *.tar.gz
 .DS_Store
+.cache
