@@ -19,6 +19,3 @@
 [submodule "scripts/batch-scripts"]
 	path = scripts/batch-scripts
 	url = https://github.com/rest-for-physics/batch-scripts.git
-[submodule "doc/userguide"]
-	path = doc/userguide
-	url = https://github.com/rest-for-physics/rest-docs.github.io.git
